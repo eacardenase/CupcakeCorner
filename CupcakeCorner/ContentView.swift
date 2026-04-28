@@ -7,25 +7,14 @@
 
 import SwiftUI
 
-@Observable
-class User: Codable {
-    var name = "Taylor"
-
-    enum CodingKeys: String, CodingKey {
-        case _name = "name"
-    }
-}
-
 struct ContentView: View {
+    @State private var counter = 0
+
     var body: some View {
-        Button("Encode Taylor", action: encodeTaylor)
-    }
-
-    func encodeTaylor() {
-        let data = try! JSONEncoder().encode(User())
-        let str = String(decoding: data, as: UTF8.self)
-
-        print(str)
+        Button("Tap Count: \(counter)") {
+            counter += 1
+        }
+        .sensoryFeedback(.increase, trigger: counter)
     }
 }
 
