@@ -15,6 +15,9 @@ struct ContentView: View {
             counter += 1
         }
         .sensoryFeedback(.increase, trigger: counter)
+        // .sensoryFeedback(.impact(flexibility: .soft, intensity: 0.5), trigger: counter)
+        // .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: counter)
+        // .sensoryFeedback(.impact(weight: .heavy, intensity: 1), trigger: counter)
     }
 }
 
