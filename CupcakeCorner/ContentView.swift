@@ -11,6 +11,7 @@ struct Result: Codable {
     var trackId: Int
     var trackName: String
     var collectionName: String
+    var artworkUrl100: String
 }
 
 struct Response: Codable {
@@ -22,12 +23,27 @@ struct ContentView: View {
 
     var body: some View {
         List(results, id: \.trackId) { item in
-            VStack(alignment: .leading) {
-                Text(item.trackName)
-                    .font(.headline)
+            HStack(spacing: 16) {
+                AsyncImage(url: URL(string: item.artworkUrl100)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    LinearGradient(
+                        colors: [.white.mix(with: .pink, by: 0.4), .pink],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+                .frame(width: 120, height: 120)
 
-                Text(item.collectionName)
-                    .font(.subheadline)
+                VStack(alignment: .leading) {
+                    Text(item.trackName)
+                        .font(.headline)
+
+                    Text(item.collectionName)
+                        .font(.subheadline)
+                }
             }
         }
         .task {
