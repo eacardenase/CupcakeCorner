@@ -29,11 +29,16 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                 } placeholder: {
-                    LinearGradient(
-                        colors: [.white.mix(with: .pink, by: 0.4), .pink],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+                    ZStack {
+                        LinearGradient(
+                            colors: [.white.mix(with: .pink, by: 0.3), .pink],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+
+                        ProgressView()
+                            .font(.largeTitle)
+                    }
                 }
                 .frame(width: 120, height: 120)
 
