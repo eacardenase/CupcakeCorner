@@ -7,75 +7,25 @@
 
 import SwiftUI
 
-struct Result: Codable {
-    var trackId: Int
-    var trackName: String
-    var collectionName: String
-    var artworkUrl100: String
-}
+@Observable
+class User: Codable {
+    var name = "Taylor"
 
-struct Response: Codable {
-    var results: [Result]
+    enum CodingKeys: String, CodingKey {
+        case _name = "name"
+    }
 }
 
 struct ContentView: View {
-    @State private var results = [Result]()
-
     var body: some View {
-        List(results, id: \.trackId) { item in
-            HStack(spacing: 16) {
-                AsyncImage(url: URL(string: item.artworkUrl100)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    ZStack {
-                        LinearGradient(
-                            colors: [.white.mix(with: .pink, by: 0.3), .pink],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-
-                        ProgressView()
-                            .font(.largeTitle)
-                    }
-                }
-                .frame(width: 120, height: 120)
-
-                VStack(alignment: .leading) {
-                    Text(item.trackName)
-                        .font(.headline)
-
-                    Text(item.collectionName)
-                        .font(.subheadline)
-                }
-            }
-        }
-        .task {
-            await loadData()
-        }
+        Button("Encode Taylor", action: encodeTaylor)
     }
 
-    func loadData() async {
-        guard
-            let url = URL(
-                string:
-                    "https://itunes.apple.com/search?term=taylor+swift&entity=song"
-            )
-        else {
-            print("Invalid URL")
+    func encodeTaylor() {
+        let data = try! JSONEncoder().encode(User())
+        let str = String(decoding: data, as: UTF8.self)
 
-            return
-        }
-
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let response = try JSONDecoder().decode(Response.self, from: data)
-
-            results = response.results
-        } catch {
-            print("Invalid data.")
-        }
+        print(str)
     }
 }
 
