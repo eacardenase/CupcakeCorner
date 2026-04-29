@@ -13,7 +13,13 @@ class Order {
 
     var type = 0
     var quantity = 1
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zipCode = ""
 
+    var extraFrosting = false
+    var addSprinkles = false
     var specialRequestEnabled = false {
         didSet {
             if !specialRequestEnabled {
@@ -22,6 +28,16 @@ class Order {
             }
         }
     }
-    var extraFrosting = false
-    var addSprinkles = false
+
+    var hasValidAddress: Bool {
+        if name.isEmpty
+            || streetAddress.isEmpty
+            || city.isEmpty
+            || zipCode.isEmpty
+        {
+            return false
+        }
+
+        return true
+    }
 }
