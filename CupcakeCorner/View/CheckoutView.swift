@@ -49,7 +49,6 @@ struct CheckoutView: View {
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize)
         .alert("Thank you!", isPresented: $showingConfirmation) {
-            Button("OK") {}
         } message: {
             Text(confirmationMessage)
         }
