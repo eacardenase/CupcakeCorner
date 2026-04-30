@@ -30,10 +30,11 @@ class Order: Codable {
     }
 
     var hasValidAddress: Bool {
-        if name.isEmpty
-            || streetAddress.isEmpty
-            || city.isEmpty
-            || zipCode.isEmpty
+        if name.trimmingCharacters(in: .whitespaces).isEmpty
+            || streetAddress.trimmingCharacters(in: .whitespaces).isEmpty
+            || city.trimmingCharacters(in: .whitespaces).isEmpty
+            || zipCode.trimmingCharacters(in: .whitespaces).isEmpty
+            || streetAddress.trimmingCharacters(in: .whitespaces).isEmpty
         {
             return false
         }
